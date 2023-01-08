@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Proiect_IA_Program.GraphUtility
@@ -8,17 +9,24 @@ namespace Proiect_IA_Program.GraphUtility
     static class Reader
     {
         // CHANGE THIS
-        private const string FILE_PATH = "C:\\Users\\calu\\Desktop\\IA-Proiect\\Proiect-IA-Program\\resources\\Proiect2.json";
+        private const string FILE_PATH = "..\\..\\..\\resources\\Proiect.xml";
 
         private static dynamic ReadFromFile(string filePath)
         {
-            string jsonString;
-            using (StreamReader r = new StreamReader(filePath))
+            //string jsonString;
+           /* using (StreamReader r = new StreamReader(filePath))
             {
                 jsonString = r.ReadToEnd();
             }
+           */
+            // Load the XML document
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.Load(FILE_PATH);
 
-            var obj = JObject.Parse(jsonString);
+            // Convert the XML document to a JSON string
+            string json = JsonConvert.SerializeXmlNode(doc);
+
+            var obj = JObject.Parse(json);
             return obj["BIF"]["NETWORK"];
         }
         
