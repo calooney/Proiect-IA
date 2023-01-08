@@ -1,0 +1,81 @@
+{
+  "BIF": {
+    "NETWORK": {
+      "NAME": "Untitled",
+      "PROPERTY": [
+        "detailed =",
+        "short ="
+      ],
+      "VARIABLE": [
+        {
+          "NAME": "Gripa",
+          "OUTCOME": [
+            "T",
+            "F"
+          ],
+          "PROPERTY": "position = (7212.9169921875, 5049.77197265625)"
+        },
+        {
+          "NAME": "Abces",
+          "OUTCOME": [
+            "T",
+            "F"
+          ],
+          "PROPERTY": "position = (7771.08251953125, 5049.77197265625)"
+        },
+        {
+          "NAME": "Febra",
+          "OUTCOME": [
+            "T",
+            "F"
+          ],
+          "PROPERTY": "position = (7471.62890625, 5216.814453125)"
+        },
+        {
+          "NAME": "Oboseala",
+          "OUTCOME": [
+            "T",
+            "F"
+          ],
+          "PROPERTY": "position = (7274.03076171875, 5379.78173828125)"
+        },
+        {
+          "NAME": "Anorexie",
+          "OUTCOME": [
+            "T",
+            "F"
+          ],
+          "PROPERTY": "position = (7685.52490234375, 5404.22802734375)"
+        }
+      ],
+      "DEFINITION": [
+        {
+          "FOR": "Gripa",
+          "TABLE": "0.1 0.9"
+        },
+        {
+          "FOR": "Abces",
+          "TABLE": "0.05 0.95"
+        },
+        {
+          "FOR": "Febra",
+          "GIVEN": [
+            "Gripa",
+            "Abces"
+          ],
+          "TABLE": "0.8 0.2 0.7 0.3 0.25 0.75 0.05 0.95"
+        },
+        {
+          "FOR": "Oboseala",
+          "GIVEN": ["Febra"],
+          "TABLE": "0.6 0.4 0.2 0.8"
+        },
+        {
+          "FOR": "Anorexie",
+          "GIVEN": ["Febra"],
+          "TABLE": "0.5 0.5 0.1 0.9"
+        }
+      ]
+    }
+  }
+}
