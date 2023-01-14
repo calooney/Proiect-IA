@@ -1,32 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Proiect_IA_Program.GraphUtility
 {
-    static class Reader
+    public static class Reader
     {
         // CHANGE THIS
         private const string FILE_PATH = "..\\..\\..\\resources\\Proiect.xml";
 
         private static dynamic ReadFromFile(string filePath)
         {
-            //string jsonString;
-           /* using (StreamReader r = new StreamReader(filePath))
-            {
-                jsonString = r.ReadToEnd();
-            }
-           */
+            string jsonString;
+            //using (StreamReader r = new StreamReader(filePath))
+            //{
+              //  jsonString = r.ReadToEnd();
+            //}
+
             // Load the XML document
-            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-            doc.Load(FILE_PATH);
+             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+             doc.Load(FILE_PATH);
 
-            // Convert the XML document to a JSON string
-            string json = JsonConvert.SerializeXmlNode(doc);
-
-            var obj = JObject.Parse(json);
+             // Convert the XML document to a JSON string
+             jsonString= JsonConvert.SerializeXmlNode(doc);
+            
+            var obj = JObject.Parse(jsonString);
             return obj["BIF"]["NETWORK"];
         }
         
@@ -73,13 +74,19 @@ namespace Proiect_IA_Program.GraphUtility
 
                 
                 string tableString = nodeDetails["TABLE"];
+                //Console.WriteLine("PArinti:" + graph.Nodes[nodeIndex].Parents.Count);
+                //Console.Write("TABLE VALUEs " + currentNodeName + " :");
                 string[] tableValuesString = tableString.Split(' ');
+                //foreach(string data in tableValuesString)
+                //Console.Write(data + " ");
                 List<double> doubleValues = new List<double>();
                 foreach (string valueString in tableValuesString)
                 {
-                    double value = double.Parse(valueString);
+                    double value = double.Parse(valueString, CultureInfo.InvariantCulture);
+                   // Console.Write(value + " ");
                     doubleValues.Add(value);
                 }
+                //Console.WriteLine();
 
                 for (int i = 0; i < doubleValues.Count; i += graph.Nodes[nodeIndex].Domain.Count)
                 {

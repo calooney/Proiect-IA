@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Proiect_IA_Program
 {
-    class Inference
+    public class Inference
     {
         private Graph graph;
 
@@ -26,20 +26,31 @@ namespace Proiect_IA_Program
         {
             Node node = graph.Nodes[NodeId];
             List<double> Q = new List<double>();
-
-            for (int domainIndex = 0; domainIndex < node.Domain.Count; domainIndex++)
+            if (node.Observation != Node.NO_OBSERVATION)
             {
-                Queue<int> vars = new Queue<int>();
-                foreach (int index in graph.TopologicSort())
-                    vars.Enqueue(index);
-                Queue<int> varsCopy = new Queue<int>(vars.ToArray());
+                for (int domainIndex = 0; domainIndex < node.Domain.Count; domainIndex++) { 
+                    if (domainIndex != node.Observation)
+                        Q.Add(0);
+                    else
+                        Q.Add(1);
+                }
+            }   
+            else 
+            { 
+                for (int domainIndex = 0; domainIndex < node.Domain.Count; domainIndex++)
+                {
+                    Queue<int> vars = new Queue<int>();
+                    foreach (int index in graph.TopologicSort())
+                        vars.Enqueue(index);
+                    Queue<int> varsCopy = new Queue<int>(vars.ToArray());
 
-                node.Observation = domainIndex;
+                    node.Observation = domainIndex;
                 
-                double result = EnumerateAll(varsCopy);
-                Q.Add(result);
+                    double result = EnumerateAll(varsCopy);
+                    Q.Add(result);
 
-                node.Observation = Node.NO_OBSERVATION;
+                    node.Observation = Node.NO_OBSERVATION;
+                }
             }
             return Normalization(Q);
         }

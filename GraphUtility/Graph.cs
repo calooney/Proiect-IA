@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Proiect_IA_Program.GraphUtility
 {
-    class Graph
+    public class Graph
     {
         private List<Node> nodes;
 
-        internal List<Node> Nodes { get => nodes; set => nodes = value; }
+        public List<Node> Nodes { get => nodes; set => nodes = value; }
 
 
         private bool[] visited;

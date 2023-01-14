@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Proiect_IA_Program.GraphUtility
 {
-    class Node
+    public class Node
     {
         public const int NO_OBSERVATION = -1;
 
